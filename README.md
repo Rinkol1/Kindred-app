@@ -1,39 +1,26 @@
 # Kindred
 
-A small dating app built with Node.js, Express and a vanilla JavaScript front end.
+Kindred is a Node.js/Express dating and matching application with a vanilla JavaScript frontend and Supabase PostgreSQL storage.
 
-## Run it
-```
-npm install
-npm start
-```
-Open http://localhost:3000. Node 18 or newer is required.
+## Required environment variables
 
-## Features
-- Sign up and log in (passwords hashed with scrypt, session cookie is HttpOnly)
-- Profile editing (name, age, city, bio, interests) and account deletion
-- Discover profiles, like or pass, mutual likes become matches
-- Chat with matches, block a match
-- 18+ only, input validation, login rate limiting
+- `SUPABASE_URL`: Supabase project URL.
+- `SUPABASE_SERVICE_ROLE_KEY`: Supabase server-side secret/service-role key. Keep this private. Never put it in frontend files or commit it to GitHub.
+- `NODE_ENV=production` when deployed.
 
-## Demo mode
-On first start, five demo profiles are created. They like you back and reply to chats so you can try everything alone.
-- `DEMO_MODE=0` turns off the auto-likes and auto-replies
-- `SEED=0` skips creating demo profiles
+## Run locally
 
-## API
-| Method | Path | Purpose |
-| --- | --- | --- |
-| POST | /api/signup, /api/login, /api/logout | Accounts |
-| GET, PUT, DELETE | /api/me | View, edit, delete your profile |
-| GET | /api/discover | Profiles you haven't responded to |
-| POST | /api/swipe | `{ targetId, like }` |
-| GET | /api/matches | Mutual likes |
-| GET, POST | /api/messages/:id | Chat with a match |
-| POST | /api/block/:id | Block a user |
+1. Install Node.js 18 or later.
+2. Run `npm install`.
+3. Set the environment variables above.
+4. Run `npm start`.
 
-## Before going live
-- Replace `data/db.json` with PostgreSQL or MongoDB
-- Serve over HTTPS and set `NODE_ENV=production` (makes cookies Secure)
-- Add email verification, password reset, photo uploads, and a way to report users
-- Swap polling for WebSockets (Socket.IO) for instant chat
+The app listens on `PORT` (defaults to 3000) and exposes `/health` for health checks.
+
+## Database
+
+Run the Kindred SQL schema in the Supabase SQL Editor before starting the server. The server uses the `users`, `sessions`, `swipes`, `blocks`, and `messages` tables.
+
+## Security notes
+
+The service-role key bypasses Row Level Security, so it belongs only in the hosting provider's private environment variables. Never expose it to browser JavaScript, screenshots, public repositories, or chat messages. Use HTTPS in production.

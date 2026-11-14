@@ -1,13 +1,12 @@
 {
   "name": "kindred",
-  "version": "1.0.0",
-  "description": "A small dating app: Node.js, Express and a vanilla JS front end",
+  "version": "1.1.0",
+  "description": "Kindred dating and matching app with Supabase persistence",
   "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
+  "scripts": { "start": "node server.js" },
   "engines": { "node": ">=18" },
   "dependencies": {
+    "@supabase/supabase-js": "^2.57.0",
     "express": "^4.19.2"
   }
 }
